@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+div {
+  color: black;
+}
+
+img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 105vh;
+}
+
+form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+input {
+  display: block;
+  font-size: 20px;
+}
+
+label {
+  font-size: 20px;
+}
