@@ -5,5 +5,5 @@ router.get("/", (req, res) => {
   res.send("Welcome to router page");
 });
 
-// exports the router
+// exports the routers
 module.exports = router;
