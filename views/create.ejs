@@ -10,14 +10,13 @@
   <body>
     <img src="img/outside.png" />
 
-    <form action="/" method="POST">
-      <label for="username">Enter your username </label>
+    <form action="/createaccount" method="POST">
+      <label for="username">Create your username </label>
       <input name="username" type="text" />
-      <label for="password">Enter your password </label>
+      <label for="password">Create your password </label>
       <input type="password" name="password" type="text" />
-      <p class="invalid-pass"><%= error %></p>
-      <input type="submit" value="submit" />
-      <a href="/createaccount"> Create Account</a>
+      <button type="submit">Submit</button>
+      <a href="/">Cancel</a>
     </form>
   </body>
 </html>
