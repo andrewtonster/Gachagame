@@ -12,29 +12,41 @@ router.post("/", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
 
-  if (checkLogin(username, password) === true) {
-    console.log("User already in use");
-  } else {
-    const user = await User.create({
-      username: username,
-      password: password,
-    });
-  }
+  User.exists({ username: username }, async (err, doc) => {
+    if (doc === null) {
+      console.log("User does not exist");
+      const user = await User.create({
+        username: username,
+        password: password,
+      });
+    } else {
+      console.log("user exist");
+    }
+
+    printAll();
+  });
 });
-
-const checkLogin = (user, pass) => {
-  if (User.find({ username: user })) {
-    return true;
-  }
+/*
+const checkLogin = async (user, pass) => {
+  const exists = await User.exists({ username: user });
+  console.log(exists);
+  printAll();
 };
-
+*/
 const printAll = () => {
   User.find().then((users) => {
     console.log(users);
   });
 };
 
-printAll();
+const deleteAll = async () => {
+  try {
+    const deleted = await User.deleteMany({});
+    console.log(deleted);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // exports the routers
 module.exports = router;
