@@ -38,3 +38,7 @@ label {
 .invalid-pass {
   color: red;
 }
+
+.correct-pass {
+  color: green;
+}

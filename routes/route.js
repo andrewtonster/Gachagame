@@ -11,24 +11,39 @@ router.get("/", (req, res) => {
 });
 
 router.get("/createaccount", (req, res) => {
-  res.render("create");
+  res.render("create", { error: "" });
+});
+
+router.post("/createaccount", async (req, res) => {
+  const { username } = req.body;
+  const { password } = req.body;
+
+  let user = await findUser(username); // returns true if username HASNT been used
+  let pass = await findPass(password); // returns true if password HASNT been used
+  if (!user && !pass) {
+    res.render("create", { error: "Username and Password already in use" });
+  } else if (!pass) {
+    res.render("create", { error: "Password already in use " });
+  } else if (!user) {
+    res.render("create", { error: "Username is already in use" });
+  } else if (user && pass) {
+    const user = await User.create({
+      username: username,
+      password: password,
+    });
+    res.render("create", { error: "Account Created" });
+    console.log(user);
+  }
+
+  printAll();
 });
 
 router.post("/", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
 
-  if (
-    User.exists({ username: username }) &&
-    User.exists({ password: password })
-  ) {
-    console.log("you have been logged in");
-  } else {
-    res.render("main", { error: "Username or Password is Incorrect" });
-  }
-
-  User.exists({ username: username }, async (err, doc) => {
-    if (doc === null) {
+  User.exists({ username: username }, async (err, result) => {
+    if (result === null) {
       console.log("Created new User");
       const user = await User.create({
         username: username,
@@ -57,3 +72,31 @@ const deleteAll = async () => {
 
 // exports the routers
 module.exports = router;
+
+const findUser = async (user) => {
+  return User.findOne({ username: user }).then(function (user) {
+    if (user) {
+      // user exists, you can throw an error if you want
+      console.log("user alreadty exist");
+      return false;
+    }
+
+    console.log("User does not exist");
+    return true;
+    // user doesn't exist, all is good in your case
+  });
+};
+
+const findPass = async (pass) => {
+  return User.findOne({ password: pass }).then(function (user) {
+    if (user) {
+      // user exists, you can throw an error if you want
+      console.log("user alreadty exist");
+      return false;
+    }
+
+    console.log("Password does not exist");
+    return true;
+    // user doesn't exist, all is good in your case
+  });
+};
