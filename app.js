@@ -10,7 +10,8 @@ app.use(express.static("public"));
 app.use("/css", express.static(__dirname + "public/css"));
 app.use("/img", express.static(__dirname + "public/img"));
 
-app.use("/new", router);
+app.use(express.urlencoded({ extended: false }));
+app.use("/", router);
 
 app.set("view engine", "ejs");
 
