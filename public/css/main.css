@@ -34,3 +34,7 @@ input {
 label {
   font-size: 25px;
 }
+
+.invalid-pass {
+  color: red;
+}

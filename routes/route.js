@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require("../models/users");
 
 router.get("/", (req, res) => {
-  res.render("main");
+  res.render("main", { error: "" });
 });
 
 router.post("/", async (req, res) => {
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
         password: password,
       });
     } else {
-      console.log("user exist");
+      res.render("main", { error: "Username or Password is Incorrect" });
     }
 
     printAll();
