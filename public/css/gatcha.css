@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+div {
+  color: black;
+}
+
+img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 105vh;
+}
+
+form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+input {
+  display: block;
+  font-size: 20px;
+}
+
+label {
+  font-size: 25px;
+}
+
+.invalid-pass {
+  color: red;
+}
+
+.correct-pass {
+  color: green;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  color: red;
+  margin: 30px;
+  padding: 5px;
+  width: 300px;
+  height: 100px;
+  font-size: 25px;
+  border-radius: 20px;
+  border-style: solid;
+}
+
+.menu {
+  background-color: red;
+  height: 750px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: double;
+  border-radius: 20px;
+  border-width: 10px;
+  background-color: tan;
+}
+
+a {
+  text-decoration: none;
+  color: red;
+}
+
+a:active {
+  outline: none; /* remove the default outline */
+  box-shadow: none; /* remove the default box-shadow */
+}

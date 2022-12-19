@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const ejs = require("ejs");
 const router = require("./routes/route");
+const game = require;
 const mongoose = require("mongoose");
 
 //STATIC FILES

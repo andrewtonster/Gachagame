@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/gatcha", (req, res) => {
-  res.send("hello");
+  res.render("gatcha");
 });
 
 router.get("/createaccount", (req, res) => {
