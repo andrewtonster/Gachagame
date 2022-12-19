@@ -16,8 +16,19 @@
       <label for="password">Enter your password </label>
       <input type="password" name="password" type="text" />
       <p class="invalid-pass"><%= error %></p>
-      <input type="submit" value="submit" />
+      <input class="<%= message %>" id="submit" type="submit" value="submit" />
       <a href="/createaccount"> Create Account</a>
     </form>
+
+    <script>
+      const submit = document.querySelector("#submit");
+      console.log(submit);
+      if (submit.classList.contains("gatcha")) {
+        console.log("element has the gatcha class");
+        window.location.href = "/gatcha";
+      } else {
+        console.log("something went wrong");
+      }
+    </script>
   </body>
 </html>

@@ -7,7 +7,11 @@ const User = require("../models/users");
 // make a route to the users id
 
 router.get("/", (req, res) => {
-  res.render("main", { error: "" });
+  res.render("main", { error: "", message: "" });
+});
+
+router.get("/gatcha", (req, res) => {
+  res.send("hello");
 });
 
 router.get("/createaccount", (req, res) => {
@@ -42,17 +46,25 @@ router.post("/", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
 
-  User.exists({ username: username }, async (err, result) => {
-    if (result === null) {
-      console.log("Created new User");
-      const user = await User.create({
-        username: username,
-        password: password,
-      });
+  User.exists(
+    { username: username, password: password },
+    async (err, result) => {
+      if (result === null) {
+        console.log("Failed to Login");
+        res.render("main", {
+          error: "Failed to login, check username and password",
+          message: "",
+        });
+        printAll();
+      } else {
+        res.render("main", {
+          error: "Succuessful Login",
+          message: "gatcha",
+        });
+        console.log("logged in ");
+      }
     }
-
-    printAll();
-  });
+  );
 });
 
 const printAll = () => {
