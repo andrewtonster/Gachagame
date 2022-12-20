@@ -62,25 +62,52 @@ router.post("/", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
 
-  User.exists(
-    { username: username, password: password },
-    async (err, result) => {
-      if (result === null) {
-        console.log("Failed to Login");
-        res.render("main", {
-          error: "Failed to login, check username and password",
-          message: "",
-        });
-        printAll();
-      } else {
-        res.render("main", {
-          error: "Succuessful Login",
-          message: "gatcha",
-        });
-        console.log("logged in ");
-      }
+  const user = await find(username);
+  if (user) {
+    const validPassword = await comparePasswords(user.password, password);
+
+    if (validPassword) {
+      res.render("main", {
+        error: "Succuessful Login",
+        message: "gatcha",
+      });
+      console.log("logged in ");
+    } else {
+      console.log("Failed to Login");
+      res.render("main", {
+        error: "Failed to login, check username and password",
+        message: "",
+      });
+      printAll();
     }
-  );
+  } else {
+    res.render("main", {
+      error: "Failed to login, check username and password",
+      message: "",
+    });
+  }
+
+  // we need to reach into the user and then retrieve its hashed password
+  // then we need to hash the password passed in the form
+  // then we need to compare
+  /*
+  User.exists({ username: username, password: hashed }, async (err, result) => {
+    if (result === null) {
+      console.log("Failed to Login");
+      res.render("main", {
+        error: "Failed to login, check username and password",
+        message: "",
+      });
+      printAll();
+    } else {
+      res.render("main", {
+        error: "Succuessful Login",
+        message: "gatcha",
+      });
+      console.log("logged in ");
+    }
+  });
+  */
 });
 
 const printAll = () => {
@@ -128,4 +155,18 @@ const findPass = async (pass) => {
     // user doesn't exist, all is good in your case
   });
 };
-printAll();
+
+const comparePasswords = async (saved, supplied) => {
+  const [hashed, salt] = saved.split(".");
+  const hashedSupplied = await scrypt(supplied, salt, 64);
+
+  return hashed === hashedSupplied.toString("hex");
+};
+
+async function find(username) {
+  try {
+    return await User.findOne({ username: username }).exec();
+  } catch (err) {
+    console.log("invalid username");
+  }
+}
