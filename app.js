@@ -4,6 +4,12 @@ const ejs = require("ejs");
 const router = require("./routes/route");
 const game = require;
 const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    keys: ["uadbosabdioabua"],
+  })
+);
 
 //STATIC FILES
 // this is middleware

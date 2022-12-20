@@ -42,3 +42,27 @@ label {
 .correct-pass {
   color: green;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:active {
+  outline: none; /* remove the default outline */
+  box-shadow: none; /* remove the default box-shadow */
+}
+
+button {
+  padding: 1px;
+  height: 25px;
+  display: inline-block;
+  margin-right: 20px;
+  font-style: normal;
+  font-size: 15px;
+}
+
+#submit {
+  margin-top: 10px;
+  display: inline-block;
+  margin-right: 20px;
+}

@@ -3,6 +3,11 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const router = express.Router();
 const User = require("../models/users");
+const cookieSession = require("cookie-session");
+const crypto = require("crypto");
+const util = require("util");
+
+const scrypt = util.promisify(crypto.scrypt);
 
 // make a route to the users id
 
@@ -14,6 +19,18 @@ router.get("/gatcha", (req, res) => {
   res.render("gatcha");
 });
 
+router.get("/roll", (req, res) => {
+  res.send("roll");
+});
+
+router.get("/gems", (req, res) => {
+  res.send("my gems");
+});
+
+router.get("/gemine", (req, res) => {
+  res.render("gemmine");
+});
+
 router.get("/createaccount", (req, res) => {
   res.render("create", { error: "" });
 });
@@ -22,24 +39,23 @@ router.post("/createaccount", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
 
+  const salt = crypto.randomBytes(8).toString("hex");
+  const hashedHex = await scrypt(password, salt, 64); // hashes the password + salt into a buffer
+  const hashed = hashedHex.toString("hex"); // converts the buffer back into a string
+  console.log(hashed);
+
   let user = await findUser(username); // returns true if username HASNT been used
-  let pass = await findPass(password); // returns true if password HASNT been used
-  if (!user && !pass) {
-    res.render("create", { error: "Username and Password already in use" });
-  } else if (!pass) {
-    res.render("create", { error: "Password already in use " });
-  } else if (!user) {
+  if (!user) {
     res.render("create", { error: "Username is already in use" });
-  } else if (user && pass) {
+  } else if (user) {
     const user = await User.create({
       username: username,
-      password: password,
+      password: `${hashed}.${salt}`,
     });
-    res.render("create", { error: "Account Created" });
     console.log(user);
+    const id = user._id.toString();
+    res.render("create", { error: "Account Created" });
   }
-
-  printAll();
 });
 
 router.post("/", async (req, res) => {
@@ -112,3 +128,4 @@ const findPass = async (pass) => {
     // user doesn't exist, all is good in your case
   });
 };
+printAll();
