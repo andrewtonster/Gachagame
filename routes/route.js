@@ -12,10 +12,10 @@ const scrypt = util.promisify(crypto.scrypt);
 // make a route to the users id
 
 router.get("/", (req, res) => {
-  res.render("main", { error: "", message: "" });
+  res.render("main", { error: "", message: "undef", userId: "undef" });
 });
 
-router.get("/gatcha", (req, res) => {
+router.get("/gatcha:num", (req, res) => {
   res.render("gatcha");
 });
 
@@ -65,11 +65,12 @@ router.post("/", async (req, res) => {
   const user = await find(username);
   if (user) {
     const validPassword = await comparePasswords(user.password, password);
-
+    const userId = user._id.toString();
     if (validPassword) {
       res.render("main", {
         error: "Succuessful Login",
-        message: "gatcha",
+        message: "valid",
+        userId: userId,
       });
       console.log("logged in ");
     } else {
@@ -77,6 +78,7 @@ router.post("/", async (req, res) => {
       res.render("main", {
         error: "Failed to login, check username and password",
         message: "",
+        userId: "invalid",
       });
       printAll();
     }
@@ -84,30 +86,9 @@ router.post("/", async (req, res) => {
     res.render("main", {
       error: "Failed to login, check username and password",
       message: "",
+      userId: "invalid",
     });
   }
-
-  // we need to reach into the user and then retrieve its hashed password
-  // then we need to hash the password passed in the form
-  // then we need to compare
-  /*
-  User.exists({ username: username, password: hashed }, async (err, result) => {
-    if (result === null) {
-      console.log("Failed to Login");
-      res.render("main", {
-        error: "Failed to login, check username and password",
-        message: "",
-      });
-      printAll();
-    } else {
-      res.render("main", {
-        error: "Succuessful Login",
-        message: "gatcha",
-      });
-      console.log("logged in ");
-    }
-  });
-  */
 });
 
 const printAll = () => {
