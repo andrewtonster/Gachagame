@@ -9,14 +9,16 @@ const util = require("util");
 
 const scrypt = util.promisify(crypto.scrypt);
 
+let clientId;
+
 // make a route to the users id
 
 router.get("/", (req, res) => {
-  res.render("main", { error: "", message: "undef", userId: "undef" });
+  res.render("main", { error: "", message: "undef", userId: "undef", gems: 0 });
 });
 
 router.get("/gatcha:num", (req, res) => {
-  res.render("gatcha");
+  res.render("gatcha", { userId: clientId });
 });
 
 router.get("/roll", (req, res) => {
@@ -27,8 +29,12 @@ router.get("/gems", (req, res) => {
   res.send("my gems");
 });
 
-router.get("/gemine", (req, res) => {
-  res.render("gemmine");
+router.get("/gemmine:num", async (req, res) => {
+  let currUser = await findId(clientId);
+  console.log(currUser);
+  let numGems = currUser.gems;
+  console.log(numGems);
+  res.render("gemmine", { gems: numGems });
 });
 
 router.get("/createaccount", (req, res) => {
@@ -51,6 +57,7 @@ router.post("/createaccount", async (req, res) => {
     const user = await User.create({
       username: username,
       password: `${hashed}.${salt}`,
+      gems: 0,
     });
     console.log(user);
     const id = user._id.toString();
@@ -65,12 +72,12 @@ router.post("/", async (req, res) => {
   const user = await find(username);
   if (user) {
     const validPassword = await comparePasswords(user.password, password);
-    const userId = user._id.toString();
+    clientId = user._id.toString();
     if (validPassword) {
       res.render("main", {
         error: "Succuessful Login",
         message: "valid",
-        userId: userId,
+        userId: clientId,
       });
       console.log("logged in ");
     } else {
@@ -147,6 +154,14 @@ const comparePasswords = async (saved, supplied) => {
 async function find(username) {
   try {
     return await User.findOne({ username: username }).exec();
+  } catch (err) {
+    console.log("invalid username");
+  }
+}
+
+async function findId(id) {
+  try {
+    return await User.findOne({ _id: id }).exec();
   } catch (err) {
     console.log("invalid username");
   }

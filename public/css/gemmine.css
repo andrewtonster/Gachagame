@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 105vh;
+  z-index: -10;
+  position: absolute;
+}
+
+button {
+  z-index: 0;
+  margin: auto;
+  height: 50px;
+  width: 150px;
+  background-color: aliceblue;
+}
+
+.menu {
+  border-radius: 20px;
+  opacity: 0.8;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(118, 198, 235);
+  height: 40vh;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  z-index: 0;
+  color: red;
+}
+
+#timer {
+  font-size: 100px;
+  margin: auto;
+}
+
+.gems {
+  z-index: 0;
+}

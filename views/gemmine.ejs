@@ -4,10 +4,52 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/gatcha.css" />
+    <link rel="stylesheet" href="css/gemmine.css" />
     <title>Document</title>
   </head>
   <body>
     <img src="img/gemcave.jpeg" />
+
+    <div class="menu">
+      <p class="gems">hello <%= gems %></p>
+      <button class="button">START MINING!</button>
+      <div id="timer">60:00</div>
+    </div>
   </body>
+
+  <script>
+    let finised = false;
+    // Set the deadline for the countdown
+    var deadline = new Date().getTime() + 60 * 60 * 1000; // 60 minutes * 60 seconds * 1000 milliseconds
+
+    // Initialize the countdown timer
+    function updateTimer() {
+      // Get the current time
+      var now = new Date().getTime();
+
+      // Calculate the time remaining for the countdown
+      var timeRemaining = Math.floor((deadline - now) / 1000);
+
+      // Calculate the minutes and seconds for the countdown
+      var minutes = Math.floor(timeRemaining / 60);
+      var seconds = timeRemaining % 60;
+
+      // Update the timer display
+      document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+
+      // If the countdown is finished, stop the timer
+      if (timeRemaining < 0) {
+        clearInterval(countdown);
+        finished = true;
+      }
+    }
+
+    // Start the countdown timer
+    const start = document
+      .querySelector(".button")
+      .addEventListener("click", () => {
+        console.log("clicked");
+        setInterval(updateTimer, 1000);
+      });
+  </script>
 </html>
