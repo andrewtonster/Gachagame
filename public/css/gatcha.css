@@ -80,3 +80,9 @@ a:active {
   outline: none; /* remove the default outline */
   box-shadow: none; /* remove the default box-shadow */
 }
+
+.collect {
+  width: 100px;
+  height: 50px;
+  background-color: cornflowerblue;
+}

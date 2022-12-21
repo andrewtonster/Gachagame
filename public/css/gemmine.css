@@ -18,12 +18,13 @@ img {
   position: absolute;
 }
 
-button {
+#start-timer {
   z-index: 0;
   margin: auto;
   height: 50px;
   width: 150px;
   background-color: aliceblue;
+  margin-top: 5vh;
 }
 
 .menu {
@@ -37,8 +38,7 @@ button {
   background-color: rgb(118, 198, 235);
   height: 40vh;
   width: 30vw;
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 
 p {
@@ -48,9 +48,19 @@ p {
 
 #timer {
   font-size: 100px;
-  margin: auto;
+  margin-top: 10px;
 }
 
 .gems {
   z-index: 0;
+}
+
+form {
+}
+
+.rules {
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: 300;
+  color: rgb(0, 0, 255);
 }

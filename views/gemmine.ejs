@@ -11,38 +11,63 @@
     <img src="img/gemcave.jpeg" />
 
     <div class="menu">
-      <p class="gems">hello <%= gems %></p>
-      <button class="button">START MINING!</button>
-      <div id="timer">60:00</div>
+      <p class="rules">
+        Rules: Once you start timer you can't stop! Work for 1 hour to earn a
+        gem, no pausing. You got this!
+      </p>
+      <button id="start-timer">START MINING!</button>
+      <div id="timer"></div>
+
+      <% const numGems = gems + 1 %>
+      <form action="/gemmine:num" method="POST">
+        <input
+          class="gemEarn"
+          type="hidden"
+          name="age"
+          value="<%= numGems %>"
+        />
+      </form>
     </div>
   </body>
 
   <script>
-    let finised = false;
-    // Set the deadline for the countdown
-    var deadline = new Date().getTime() + 60 * 60 * 1000; // 60 minutes * 60 seconds * 1000 milliseconds
+    // I need to create a form element
+    // when the timer ends
+    // I need to pop up a "recieve button disguised as a form"
+    // then when the user clicks the button, it will make a post request and
+    // then i need a route handler for the gems and have an update function in that
 
-    // Initialize the countdown timer
-    function updateTimer() {
-      // Get the current time
-      var now = new Date().getTime();
+    const gemEarn = document.querySelector(".gemEarn");
 
-      // Calculate the time remaining for the countdown
-      var timeRemaining = Math.floor((deadline - now) / 1000);
+    const startTimerButton = document.getElementById("start-timer");
+    const timerElement = document.getElementById("timer");
+    const newGem = document.querySelector(".gemEarn");
+    const startTimer = () => {
+      let timer;
+      timer = 60 * 1;
+      const remainingTime = setInterval(() => {
+        // Decrement the timer by 1 second
+        timer--;
 
-      // Calculate the minutes and seconds for the countdown
-      var minutes = Math.floor(timeRemaining / 60);
-      var seconds = timeRemaining % 60;
+        // Update the timer element
+        // minutes by rounding integer and dividing by 60, seconds is the remainder
+        timerElement.innerHTML = `${Math.floor(timer / 60)}:${timer % 60}`;
+        if (timer === 0) {
+          clearInterval(remainingTime);
+          gemEarn.insertAdjacentHTML(
+            "afterend",
+            `<button class = "collect" type="submit">Collect Your Gem</button>`
+          );
+          // append a form
+        }
+      }, 1000);
+    };
 
-      // Update the timer display
-      document.getElementById("timer").innerHTML = minutes + ":" + seconds;
-
-      // If the countdown is finished, stop the timer
-      if (timeRemaining < 0) {
-        clearInterval(countdown);
-        finished = true;
-      }
-    }
+    startTimerButton.addEventListener("click", () => {
+      // Set the timer to 60 minutes
+      // Start the timer
+      startTimer();
+    });
 
     // Start the countdown timer
     const start = document
@@ -51,5 +76,11 @@
         console.log("clicked");
         setInterval(updateTimer, 1000);
       });
+
+    finished = true;
+
+    if (finished === true) {
+      gems++;
+    }
   </script>
 </html>
