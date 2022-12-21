@@ -41,6 +41,11 @@ router.get("/createaccount", (req, res) => {
   res.render("create", { error: "" });
 });
 
+router.post("/gemmine:num", (req, res) => {
+  const { gems } = req.body;
+  console.log(gems);
+});
+
 router.post("/createaccount", async (req, res) => {
   const { username } = req.body;
   const { password } = req.body;

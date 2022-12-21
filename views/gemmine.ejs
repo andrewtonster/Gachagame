@@ -18,19 +18,13 @@
       <button id="start-timer">START MINING!</button>
       <div id="timer"></div>
 
-      <% const numGems = gems + 1 %>
       <form action="/gemmine:num" method="POST">
-        <input
-          class="gemEarn"
-          type="hidden"
-          name="age"
-          value="<%= numGems %>"
-        />
+        <input class="gemEarn" type="hidden" name="gems" />
       </form>
     </div>
   </body>
-
   <script>
+    let numberGems = "<%= gems %>";
     // I need to create a form element
     // when the timer ends
     // I need to pop up a "recieve button disguised as a form"
@@ -42,9 +36,10 @@
     const startTimerButton = document.getElementById("start-timer");
     const timerElement = document.getElementById("timer");
     const newGem = document.querySelector(".gemEarn");
+
     const startTimer = () => {
       let timer;
-      timer = 60 * 1;
+      timer = 60 * 0.1;
       const remainingTime = setInterval(() => {
         // Decrement the timer by 1 second
         timer--;
@@ -54,28 +49,45 @@
         timerElement.innerHTML = `${Math.floor(timer / 60)}:${timer % 60}`;
         if (timer === 0) {
           clearInterval(remainingTime);
+          numberGems++;
+          console.log(numberGems);
           gemEarn.insertAdjacentHTML(
             "afterend",
-            `<button class = "collect" type="submit">Collect Your Gem</button>`
+            `<button class= "collect" type="submit">Collect Your Gem</button>
+              <img class = "gem" src="img/gemstone.webp" />
+            `
           );
           // append a form
+          gemEarn.setAttribute("value", `${numberGems}`);
         }
       }, 1000);
     };
 
+    function disableButton(button) {
+      console.log("button is disabled");
+      document.querySelector(button).disabled = true;
+    }
+
     startTimerButton.addEventListener("click", () => {
       // Set the timer to 60 minutes
       // Start the timer
+      disableButton("#start-timer");
       startTimer();
     });
 
     // Start the countdown timer
+
+    /*
     const start = document
       .querySelector(".button")
       .addEventListener("click", () => {
-        console.log("clicked");
         setInterval(updateTimer, 1000);
       });
+
+      */
+    document.querySelector(".collect").addEventListener("click", () => {
+      console.log("clicked");
+    });
 
     finished = true;
 

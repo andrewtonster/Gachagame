@@ -5,6 +5,9 @@ const router = require("./routes/route");
 const game = require;
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+
+process.env.MY_VARIABLE = "Hello World";
+
 app.use(
   cookieSession({
     keys: ["uadbosabdioabua"],

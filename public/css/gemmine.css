@@ -36,8 +36,8 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(118, 198, 235);
-  height: 40vh;
-  width: 30vw;
+  height: 60vh;
+  width: 25vw;
   text-align: center;
 }
 
@@ -63,4 +63,20 @@ form {
   font-size: 20px;
   font-weight: 300;
   color: rgb(0, 0, 255);
+}
+
+.gem {
+  width: 100px;
+  height: 100px; /* Set a width if needed */
+}
+
+.collect {
+  margin: 0 auto;
+  background-color: #04aa6d; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 50%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
 }
