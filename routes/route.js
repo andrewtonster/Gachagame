@@ -40,10 +40,20 @@ router.get("/gemmine:num", async (req, res) => {
 router.get("/createaccount", (req, res) => {
   res.render("create", { error: "" });
 });
+async function updateUser(numGems) {
+  try {
+    const user = await User.updateOne({ _id: clientId }, { gems: numGems });
+    console.log(user);
+    const userInfo = await findId(clientId);
+    console.log(userInfo);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-router.post("/gemmine:num", (req, res) => {
+router.post("/gemmine:num", async (req, res) => {
   const { gems } = req.body;
-  console.log(gems);
+  updateUser(gems);
 });
 
 router.post("/createaccount", async (req, res) => {
