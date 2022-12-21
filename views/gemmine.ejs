@@ -8,8 +8,12 @@
     <title>Document</title>
   </head>
   <body>
-    <img src="img/gemcave.jpeg" />
+    <img class="background" src="img/gemcave.jpeg" />
+    <img />
 
+    <a href="javascript:history.go(-1)" class="back-button">
+      <p class="back">⇦ BACK</p></a
+    >
     <div class="menu">
       <p class="rules">
         Rules: Once you start timer you can't stop! Work for 1 hour to earn a
@@ -32,7 +36,6 @@
     // then i need a route handler for the gems and have an update function in that
 
     const gemEarn = document.querySelector(".gemEarn");
-
     const startTimerButton = document.getElementById("start-timer");
     const timerElement = document.getElementById("timer");
     const newGem = document.querySelector(".gemEarn");
@@ -49,8 +52,7 @@
         timerElement.innerHTML = `${Math.floor(timer / 60)}:${timer % 60}`;
         if (timer === 0) {
           clearInterval(remainingTime);
-          numberGems++;
-          console.log(numberGems);
+
           gemEarn.insertAdjacentHTML(
             "afterend",
             `<button class= "collect" type="submit">Collect Your Gem</button>
@@ -58,7 +60,22 @@
             `
           );
           // append a form
-          gemEarn.setAttribute("value", `${numberGems}`);
+
+          const gemImage = document.querySelector(".gem");
+          console.log(gemImage);
+          gemImage.style.visiblity = "visible";
+
+          console.log(numberGems);
+          const collect = document
+            .querySelector(".collect")
+            .addEventListener("click", () => {
+              numberGems++;
+              gemEarn.setAttribute("value", `${numberGems}`);
+              gemImage.classList.add("hidden");
+              setTimeout(() => {
+                disableButton(".collect");
+              }, 100);
+            });
         }
       }, 1000);
     };
@@ -85,14 +102,14 @@
       });
 
       */
-    document.querySelector(".collect").addEventListener("click", () => {
-      console.log("clicked");
-    });
 
+    const gemImage = document.querySelector(".gem");
+    /*
     finished = true;
 
     if (finished === true) {
       gems++;
     }
+    */
   </script>
 </html>
