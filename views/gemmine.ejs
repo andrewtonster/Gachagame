@@ -8,7 +8,7 @@
     <title>Document</title>
   </head>
   <body>
-    <img class="background" src="img/gemcave.jpeg" />
+    <img class="background" src="img/mine.jpeg" />
     <img />
 
     <a href="javascript:history.go(-1)" class="back-button">
@@ -80,7 +80,7 @@
               "afterend",
               `
               <div class = "end">
-              <button class = "home">Return Home</button>
+              <button class = "home"><a class = "backhome">Return Home</a></button>
               <button class = "restart"><a class = "newPage"> Restart Timer</a></button>
                 </div>`
             );
@@ -93,12 +93,9 @@
             */
             const restart = document.querySelector(".restart");
             const newPage = document.querySelector(".newPage");
+            const home = document.querySelector(".backhome");
+            home.setAttribute("href", `/gatcha:&<%= userId %>`);
             newPage.setAttribute("href", `/gemmine:&<%= userId %>`);
-            restart.addEventListener("click", () => {
-              console.log("restart is clicked");
-
-              return false;
-            });
           });
         }
       }, 1000);

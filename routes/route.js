@@ -26,7 +26,7 @@ router.get("/roll", (req, res) => {
 });
 
 router.get("/gems", (req, res) => {
-  res.send("my gems");
+  res.render("inventory");
 });
 
 router.get("/gemmine:num", async (req, res) => {

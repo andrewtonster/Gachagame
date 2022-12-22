@@ -18,15 +18,6 @@ body {
   position: absolute;
 }
 
-#start-timer {
-  z-index: 0;
-  margin: auto;
-  height: 50px;
-  width: 150px;
-  background-color: aliceblue;
-  margin-top: 5vh;
-}
-
 .menu {
   border-radius: 20px;
   opacity: 0.8;
@@ -46,39 +37,16 @@ p {
   color: red;
 }
 
-#timer {
-  font-size: 100px;
-  margin-top: 10px;
-}
-
-.gems {
-  z-index: 0;
-}
-
-form {
-}
-
 .rules {
-  margin-top: 5px;
-  font-size: 20px;
+  margin-top: 5vh;
+  font-size: 25px;
   font-weight: 300;
   color: rgb(0, 0, 255);
 }
 
 .gem {
-  width: 100px;
-  height: 100px; /* Set a width if needed */
-}
-
-.collect {
-  margin: 0 auto;
-  background-color: #04aa6d; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  width: 50%; /* Set a width if needed */
-  display: block; /* Make the buttons appear below each other */
+  width: 250px;
+  height: 250px; /* Set a width if needed */
 }
 
 .back {
@@ -97,35 +65,14 @@ a:active {
   box-shadow: none; /* remove the default box-shadow */
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-.end {
-  display: inline-block;
-  margin: 0 auto;
-  padding: 3px;
-}
-
-.home {
-  margin-top: 15vh;
-  width: 10vw;
-  height: 5vh;
-  background-color: tan;
-  color: black;
-}
-
-.restart {
-  margin-top: 15vh;
-  width: 10vw;
-  height: 5vh;
-  background-color: tan;
-  color: black;
-}
-
 a {
   text-decoration: none;
-
   color: aliceblue;
   font-size: 15px;
+}
+
+.amount {
+  font-size: 100px;
+  font-weight: 300;
+  color: rgb(49, 46, 211);
 }
