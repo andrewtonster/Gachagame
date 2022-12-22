@@ -6,6 +6,7 @@ const User = require("../models/users");
 const cookieSession = require("cookie-session");
 const crypto = require("crypto");
 const util = require("util");
+const { update } = require("../models/users");
 
 const scrypt = util.promisify(crypto.scrypt);
 
@@ -21,7 +22,7 @@ router.get("/gatcha:num", (req, res) => {
   res.render("gatcha", { userId: clientId });
 });
 
-router.get("/roll", async (req, res) => {
+router.get("/roll:num", async (req, res) => {
   let currUser = await findId(clientId);
   let numGems = currUser.gems;
   res.render("roll", { gems: numGems });
@@ -54,6 +55,13 @@ async function updateUser(numGems) {
     console.log(err);
   }
 }
+
+router.post("/roll:num", async (req, res) => {
+  const { gems } = req.body;
+  console.log("these are the amount of gems");
+  console.log(gems);
+  updateUser(gems);
+});
 
 router.post("/gemmine:num", async (req, res) => {
   const { gems } = req.body;

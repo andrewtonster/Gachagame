@@ -18,6 +18,39 @@ body {
   position: absolute;
 }
 
+.menu {
+  border-radius: 20px;
+  opacity: 0.8;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(118, 198, 235);
+  height: 60vh;
+  width: 25vw;
+  text-align: center;
+}
+
+p {
+  z-index: 0;
+  color: red;
+}
+
+.rules {
+  margin-top: 5vh;
+  font-size: 25px;
+  font-weight: 300;
+  color: rgb(0, 0, 255);
+}
+
+.pokeimg {
+  width: 250px;
+  height: 250px; /* Set a width if needed */
+  padding: 0;
+  margin: 0;
+}
+
 .back {
   margin-left: 1vw;
   font-size: 30px;
@@ -38,4 +71,20 @@ a {
   text-decoration: none;
   color: aliceblue;
   font-size: 15px;
+}
+
+.amount {
+  margin-top: 0;
+  font-size: 50px;
+  font-weight: 300;
+  color: rgb(49, 46, 211);
+}
+
+.getPokemon {
+  z-index: 0;
+  margin: auto;
+  height: 50px;
+  width: 150px;
+  background-color: aliceblue;
+  margin-top: 5vh;
 }

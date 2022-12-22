@@ -12,5 +12,54 @@
     <a href="javascript:history.go(-1)" class="back-button">
       <p class="back">⇦ BACK</p></a
     >
+
+    <div class="menu">
+      <p class="rules">Click Here for chance to get pokemon</p>
+      <form action="/roll:num" method="POST">
+        <input class="gemLoss" type="hidden" name="gems" />
+        <button type="submit" class="getPokemon">5 Gems</button>
+      </form>
+
+      <img class="pokeimg" />
+      <p class="amount"><%= gems %></p>
+    </div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <script>
+    let numGems = "<%= gems %>";
+    const image = document.querySelector(".pokeimg");
+    let sprite;
+    const button = document.querySelector(".getPokemon");
+    const amount = document.querySelector(".amount");
+    const gemLoss = document.querySelector(".gemLoss");
+    button.addEventListener("click", () => {
+      getPokemon();
+      setTimeout(() => {
+        image.setAttribute("src", `${sprite}`);
+      }, 500);
+      numGems -= 1;
+      amount.innerHTML = `${numGems}`;
+      gemLoss.setAttribute("value", `${numGems}`);
+    });
+
+    const randomPoke = () => {
+      let random = Math.floor(Math.random() * 906);
+      return random;
+    };
+
+    const getPokemon = async () => {
+      try {
+        let id = randomPoke();
+        const fetch = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${id}`
+        );
+
+        const pokemon = fetch.data.forms[0].name;
+        // prettier-ignore
+        sprite = fetch.data.sprites.front_default
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  </script>
 </html>
