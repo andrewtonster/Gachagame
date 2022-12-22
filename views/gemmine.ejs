@@ -66,16 +66,40 @@
           gemImage.style.visiblity = "visible";
 
           console.log(numberGems);
-          const collect = document
-            .querySelector(".collect")
-            .addEventListener("click", () => {
-              numberGems++;
-              gemEarn.setAttribute("value", `${numberGems}`);
-              gemImage.classList.add("hidden");
-              setTimeout(() => {
-                disableButton(".collect");
-              }, 100);
+          const collect = document.querySelector(".collect");
+
+          collect.addEventListener("click", () => {
+            numberGems++;
+            gemEarn.setAttribute("value", `${numberGems}`);
+            gemImage.classList.add("hidden");
+            setTimeout(() => {
+              disableButton(".collect");
+            }, 100);
+
+            collect.insertAdjacentHTML(
+              "afterend",
+              `
+              <div class = "end">
+              <button class = "home">Return Home</button>
+              <button class = "restart"><a class = "newPage"> Restart Timer</a></button>
+                </div>`
+            );
+
+            /*
+            const url = window.location.href;
+
+            
+            restart.setAttribute("href", `${url}`);
+            */
+            const restart = document.querySelector(".restart");
+            const newPage = document.querySelector(".newPage");
+            newPage.setAttribute("href", `/gemmine:&<%= userId %>`);
+            restart.addEventListener("click", () => {
+              console.log("restart is clicked");
+
+              return false;
             });
+          });
         }
       }, 1000);
     };

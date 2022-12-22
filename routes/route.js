@@ -34,7 +34,7 @@ router.get("/gemmine:num", async (req, res) => {
   console.log(currUser);
   let numGems = currUser.gems;
   console.log(numGems);
-  res.render("gemmine", { gems: numGems });
+  res.render("gemmine", { gems: numGems, userId: clientId });
 });
 
 router.get("/createaccount", (req, res) => {
