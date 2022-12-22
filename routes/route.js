@@ -25,8 +25,10 @@ router.get("/roll", (req, res) => {
   res.send("roll");
 });
 
-router.get("/gems", (req, res) => {
-  res.render("inventory");
+router.get("/gems:num", async (req, res) => {
+  let currUser = await findId(clientId);
+  let numGems = currUser.gems;
+  res.render("inventory", { gems: numGems });
 });
 
 router.get("/gemmine:num", async (req, res) => {
