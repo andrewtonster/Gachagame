@@ -21,8 +21,10 @@ router.get("/gatcha:num", (req, res) => {
   res.render("gatcha", { userId: clientId });
 });
 
-router.get("/roll", (req, res) => {
-  res.send("roll");
+router.get("/roll", async (req, res) => {
+  let currUser = await findId(clientId);
+  let numGems = currUser.gems;
+  res.render("roll", { gems: numGems });
 });
 
 router.get("/gems:num", async (req, res) => {

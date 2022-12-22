@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.background {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 105vh;
+  z-index: -10;
+  position: absolute;
+}
+
+.back {
+  margin-left: 1vw;
+  font-size: 30px;
+  z-index: 0;
+  color: white;
+  text-decoration: none;
+}
+
+.back-button {
+  text-decoration: none;
+}
+a:active {
+  outline: none; /* remove the default outline */
+  box-shadow: none; /* remove the default box-shadow */
+}
+
+a {
+  text-decoration: none;
+  color: aliceblue;
+  font-size: 15px;
+}
