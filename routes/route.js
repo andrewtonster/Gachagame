@@ -18,12 +18,13 @@ router.get("/", (req, res) => {
   res.render("main", { error: "", message: "undef", userId: "undef", gems: 0 });
 });
 
-router.get("/gatcha:num", (req, res) => {
+router.get("/gatcha:num", async (req, res) => {
   res.render("gatcha", { userId: clientId });
 });
 
 router.get("/roll:num", async (req, res) => {
   let currUser = await findId(clientId);
+  console.log(currUser);
   let numGems = currUser.gems;
   res.render("roll", { gems: numGems });
 });
@@ -189,6 +190,16 @@ async function find(username) {
 async function findId(id) {
   try {
     return await User.findOne({ _id: id }).exec();
+  } catch (err) {
+    console.log("invalid username");
+  }
+}
+
+async function findGems(userid) {
+  try {
+    let currUser = await findId(clientId);
+    let numGems = currUser.gems;
+    return numGems;
   } catch (err) {
     console.log("invalid username");
   }

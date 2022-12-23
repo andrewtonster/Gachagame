@@ -88,3 +88,11 @@ a {
   background-color: aliceblue;
   margin-top: 5vh;
 }
+
+.out {
+  visibility: hidden;
+}
+
+.warning {
+  visibility: visible;
+}
