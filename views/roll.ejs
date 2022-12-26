@@ -22,9 +22,10 @@
 
       <img class="pokeimg" />
       <p class="amount"><%= gems %></p>
+
       <form action="/roll:num" method="POST">
-        <input class="store" type="hidden" name="pokemon" />
-        <button type="submit" class="getPokemon">5 Gems</button>
+        <input class="addPokemon" type="hidden" name="pokemon" />
+        <button type="submit" class="send">Send to PC</button>
       </form>
     </div>
   </body>
@@ -41,12 +42,22 @@
     const gemLoss = document.querySelector(".gemLoss");
     const out = document.querySelector(".out");
     const store = document.querySelector(".store");
+    const addPokemon = document.querySelector(".addPokemon");
+    const send = document.querySelector(".send");
 
     gemLoss.setAttribute("value", `${numGems}`);
-
     button.addEventListener("click", async () => {
+      setTimeout(() => {
+        send.disabled = false;
+      }, 500);
+
       if (numGems >= 5) {
+        setTimeout(() => {
+          button.disabled = true;
+        }, 500);
+
         let pokemon = await getPokemon();
+        addPokemon.setAttribute("value", `${pokemon}`);
         if (chanceShiny() === true) {
           setTimeout(() => {
             image.setAttribute("src", `${shiny}`);
@@ -62,14 +73,24 @@
 
         gemLoss.setAttribute("value", `${numGems}`);
         console.log("this is pokemon name " + pokemon);
-        store.setAttribute("value", `${pokemon}`);
       } else {
         numGems = numGems;
         amount.textContent = "Out of Gems";
         console.log("in out");
-        button.disabled = true;
+        setTimeout(() => {
+          button.disabled = true;
+        }, 500);
       }
     });
+
+    send.addEventListener("click", () => {
+      console.log("clicked");
+      button.disabled = false;
+      setTimeout(() => {
+        send.disabled = true;
+      }, 500);
+    });
+
     const randomPoke = () => {
       let random = Math.floor(Math.random() * 906);
       return random;

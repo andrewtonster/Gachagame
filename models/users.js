@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     integer: true,
   },
   pokemon: {
-    tags: [String],
+    type: String,
   },
 });
 

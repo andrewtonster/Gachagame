@@ -61,12 +61,22 @@ async function updateUser(numGems) {
   }
 }
 
+async function updatePokemon(name) {
+  try {
+    const user = await User.updateOne({ _id: clientId }, { pokemon: name });
+    console.log(user);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 router.post("/roll:num", async (req, res) => {
   const { gems } = req.body;
   const { pokemon } = req.body;
   console.log("This is the pokemon " + pokemon);
-  console.log("these are the amount of gems");
-  console.log(gems);
+  //console.log("these are the amount of gems");
+  //console.log(gems);
+  updatePokemon(pokemon);
   updateUser(gems);
 });
 
