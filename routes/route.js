@@ -43,6 +43,10 @@ router.get("/gemmine:num", async (req, res) => {
   res.render("gemmine", { gems: numGems, userId: clientId });
 });
 
+router.get("/storage:num", (req, res) => {
+  res.render("storage", { pokemon: "sceptile" });
+});
+
 router.get("/createaccount", (req, res) => {
   res.render("create", { error: "" });
 });
@@ -59,6 +63,8 @@ async function updateUser(numGems) {
 
 router.post("/roll:num", async (req, res) => {
   const { gems } = req.body;
+  const { pokemon } = req.body;
+  console.log("This is the pokemon " + pokemon);
   console.log("these are the amount of gems");
   console.log(gems);
   updateUser(gems);

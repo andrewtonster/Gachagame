@@ -22,22 +22,31 @@
 
       <img class="pokeimg" />
       <p class="amount"><%= gems %></p>
-      <p class="out">Out of Gems</p>
+      <form action="/roll:num" method="POST">
+        <input class="store" type="hidden" name="pokemon" />
+        <button type="submit" class="getPokemon">5 Gems</button>
+      </form>
     </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script>
     let numGems = "<%= gems %>";
+
     const image = document.querySelector(".pokeimg");
     let sprite;
     let shiny;
+    const pokeName = document.querySelector(".pokeName");
     const button = document.querySelector(".getPokemon");
     const amount = document.querySelector(".amount");
     const gemLoss = document.querySelector(".gemLoss");
     const out = document.querySelector(".out");
-    button.addEventListener("click", () => {
+    const store = document.querySelector(".store");
+
+    gemLoss.setAttribute("value", `${numGems}`);
+
+    button.addEventListener("click", async () => {
       if (numGems >= 5) {
-        getPokemon();
+        let pokemon = await getPokemon();
         if (chanceShiny() === true) {
           setTimeout(() => {
             image.setAttribute("src", `${shiny}`);
@@ -47,13 +56,16 @@
             image.setAttribute("src", `${sprite}`);
           }, 500);
         }
+
         numGems--;
         amount.innerHTML = `${numGems}`;
+
         gemLoss.setAttribute("value", `${numGems}`);
+        console.log("this is pokemon name " + pokemon);
+        store.setAttribute("value", `${pokemon}`);
       } else {
         numGems = numGems;
-        console.log(out);
-        out.classList.add("warning");
+        amount.textContent = "Out of Gems";
         console.log("in out");
         button.disabled = true;
       }
@@ -82,6 +94,8 @@
         // prettier-ignore
         sprite = fetch.data.sprites.front_default
         shiny = fetch.data.sprites.front_shiny;
+
+        return pokemon;
       } catch (err) {
         console.log(err);
       }
