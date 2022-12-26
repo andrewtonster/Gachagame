@@ -34,25 +34,21 @@
     // I need to pop up a "recieve button disguised as a form"
     // then when the user clicks the button, it will make a post request and
     // then i need a route handler for the gems and have an update function in that
-
     const gemEarn = document.querySelector(".gemEarn");
     const startTimerButton = document.getElementById("start-timer");
     const timerElement = document.getElementById("timer");
     const newGem = document.querySelector(".gemEarn");
-
     const startTimer = () => {
       let timer;
       timer = 60 * 0.1;
       const remainingTime = setInterval(() => {
         // Decrement the timer by 1 second
         timer--;
-
         // Update the timer element
         // minutes by rounding integer and dividing by 60, seconds is the remainder
         timerElement.innerHTML = `${Math.floor(timer / 60)}:${timer % 60}`;
         if (timer === 0) {
           clearInterval(remainingTime);
-
           gemEarn.insertAdjacentHTML(
             "afterend",
             `<button class= "collect" type="submit">Collect Your Gem</button>
@@ -60,14 +56,11 @@
             `
           );
           // append a form
-
           const gemImage = document.querySelector(".gem");
           console.log(gemImage);
           gemImage.style.visiblity = "visible";
-
           console.log(numberGems);
           const collect = document.querySelector(".collect");
-
           collect.addEventListener("click", () => {
             numberGems++;
             gemEarn.setAttribute("value", `${numberGems}`);
@@ -75,7 +68,6 @@
             setTimeout(() => {
               disableButton(".collect");
             }, 100);
-
             collect.insertAdjacentHTML(
               "afterend",
               `
@@ -84,10 +76,8 @@
               <button class = "restart"><a class = "newPage"> Restart Timer</a></button>
                 </div>`
             );
-
             /*
             const url = window.location.href;
-
             
             restart.setAttribute("href", `${url}`);
             */
@@ -100,34 +90,27 @@
         }
       }, 1000);
     };
-
     function disableButton(button) {
       console.log("button is disabled");
       document.querySelector(button).disabled = true;
     }
-
     startTimerButton.addEventListener("click", () => {
       // Set the timer to 60 minutes
       // Start the timer
       disableButton("#start-timer");
       startTimer();
     });
-
     // Start the countdown timer
-
     /*
     const start = document
       .querySelector(".button")
       .addEventListener("click", () => {
         setInterval(updateTimer, 1000);
       });
-
       */
-
     const gemImage = document.querySelector(".gem");
     /*
     finished = true;
-
     if (finished === true) {
       gems++;
     }

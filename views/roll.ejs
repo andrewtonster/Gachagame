@@ -35,7 +35,6 @@
     const amount = document.querySelector(".amount");
     const gemLoss = document.querySelector(".gemLoss");
     const out = document.querySelector(".out");
-
     button.addEventListener("click", () => {
       if (numGems >= 5) {
         getPokemon();
@@ -48,24 +47,21 @@
             image.setAttribute("src", `${sprite}`);
           }, 500);
         }
-
         numGems--;
         amount.innerHTML = `${numGems}`;
         gemLoss.setAttribute("value", `${numGems}`);
       } else {
-        numGems = numGems + 0;
+        numGems = numGems;
         console.log(out);
         out.classList.add("warning");
         console.log("in out");
         button.disabled = true;
       }
     });
-
     const randomPoke = () => {
       let random = Math.floor(Math.random() * 906);
       return random;
     };
-
     const chanceShiny = () => {
       let random = Math.floor(Math.random() * 500);
       if (random === 1) {
@@ -75,14 +71,12 @@
         return false;
       }
     };
-
     const getPokemon = async () => {
       try {
         let id = randomPoke();
         const fetch = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${id}`
         );
-
         const pokemon = fetch.data.forms[0].name;
         console.log(pokemon);
         // prettier-ignore
