@@ -11,6 +11,7 @@ const { update } = require("../models/users");
 const scrypt = util.promisify(crypto.scrypt);
 
 let clientId;
+let pokemonArr;
 
 // make a route to the users id
 
@@ -44,7 +45,7 @@ router.get("/gemmine:num", async (req, res) => {
 });
 
 router.get("/storage:num", (req, res) => {
-  res.render("storage", { pokemon: "sceptile" });
+  res.render("storage", { pokemonList: pokemonArr, userId: clientId });
 });
 
 router.get("/createaccount", (req, res) => {
@@ -72,8 +73,11 @@ async function updatePokemon(name) {
 
 router.post("/roll:num", async (req, res) => {
   const { gems, pokemon } = req.body;
-  updatePokemon(pokemon);
+  console.log(pokemon);
+  await addValueToArray(clientId, pokemon);
+  pokemonArr = await findArray(clientId);
   updateUser(gems);
+  res.redirect(`/storage:&${clientId}`);
 });
 
 router.post("/gemmine:num", async (req, res) => {
@@ -216,3 +220,44 @@ async function findGems(userid) {
     console.log("invalid username");
   }
 }
+
+async function findArray(userid) {
+  try {
+    let currUser = await findId(clientId);
+    let numGems = currUser.stringArray;
+    return numGems;
+  } catch (err) {
+    console.log("invalid array");
+  }
+}
+
+async function addValueToArray(id, value) {
+  try {
+    await User.updateOne({ _id: id }, { $push: { stringArray: value } });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function printArrayValues(id) {
+  try {
+    const doc = await User.findById(id);
+    for (let i = 0; i < doc.stringArray.length; i++) {
+      console.log(doc.stringArray[i]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteArrayValues = () => {
+  User.updateOne({ _id: clientId }, { $set: { stringArray: [] } }, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`deleted all`);
+    }
+  });
+};
+
+// Use the function

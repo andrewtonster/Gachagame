@@ -13,9 +13,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
     integer: true,
   },
-  pokemon: {
-    type: String,
-  },
+  stringArray: [String],
 });
 
 module.exports = mongoose.model("User", userSchema);

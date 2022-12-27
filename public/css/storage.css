@@ -3,14 +3,21 @@
   padding: 0;
 }
 
+body {
+  background-image: url("../img/grass.png");
+  background-repeat: repeat-y;
+  background-size: 100% 100%;
+}
+
 .background {
+  background-image: url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png");
   background-size: contain;
-  background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
   height: 105vh;
   z-index: -10;
   position: absolute;
+  background-repeat: repeat-y;
 }
 
 .menu {
@@ -74,7 +81,7 @@ a {
 
 .column {
   float: left;
-  width: 20%;
+  width: 10%;
   padding: 5px;
 }
 
