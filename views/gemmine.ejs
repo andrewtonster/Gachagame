@@ -29,7 +29,7 @@
   </body>
   <script>
     let numberGems = "<%= gems %>";
-    
+
     // I need to create a form element
     // when the timer ends
     // I need to pop up a "recieve button disguised as a form"
@@ -63,7 +63,7 @@
           console.log(numberGems);
           const collect = document.querySelector(".collect");
           collect.addEventListener("click", () => {
-            numberGems += 50;
+            numberGems++;
             gemEarn.setAttribute("value", `${numberGems}`);
             gemImage.classList.add("hidden");
             setTimeout(() => {

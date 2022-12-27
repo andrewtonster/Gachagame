@@ -45,6 +45,7 @@ router.get("/gemmine:num", async (req, res) => {
 });
 
 router.get("/storage:num", (req, res) => {
+  console.log(clientId);
   res.render("storage", { pokemonList: pokemonArr, userId: clientId });
 });
 
@@ -124,6 +125,8 @@ router.post("/", async (req, res) => {
         userId: clientId,
       });
       console.log("logged in ");
+      pokemonArr = await findArray(clientId);
+      console.log(clientId);
     } else {
       console.log("Failed to Login");
       res.render("main", {
