@@ -26,7 +26,7 @@ router.get("/roll:num", async (req, res) => {
   let currUser = await findId(clientId);
   console.log(currUser);
   let numGems = currUser.gems;
-  res.render("roll", { gems: numGems });
+  res.render("roll", { gems: numGems, userId: clientId });
 });
 
 router.get("/gems:num", async (req, res) => {
@@ -71,11 +71,7 @@ async function updatePokemon(name) {
 }
 
 router.post("/roll:num", async (req, res) => {
-  const { gems } = req.body;
-  const { pokemon } = req.body;
-  console.log("This is the pokemon " + pokemon);
-  //console.log("these are the amount of gems");
-  //console.log(gems);
+  const { gems, pokemon } = req.body;
   updatePokemon(pokemon);
   updateUser(gems);
 });

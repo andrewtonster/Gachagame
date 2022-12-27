@@ -9,22 +9,23 @@
   </head>
   <body>
     <img class="background" src="img/roll3.jpeg" />
-    <a href="javascript:history.go(-1)" class="back-button">
+    <a href="/gatcha:&<%= userId %>" class="back-button">
       <p class="back">⇦ BACK</p></a
     >
 
     <div class="menu">
       <p class="rules">Click Here for chance to get pokemon</p>
-      <form action="/roll:num" method="POST">
-        <input class="gemLoss" type="hidden" name="gems" />
-        <button type="submit" class="getPokemon">5 Gems</button>
-      </form>
+
+      <div>
+        <button class="getPokemon">5 Gems</button>
+      </div>
 
       <img class="pokeimg" />
       <p class="amount"><%= gems %></p>
 
       <form action="/roll:num" method="POST">
         <input class="addPokemon" type="hidden" name="pokemon" />
+        <input class="gemLoss" type="hidden" name="gems" />
         <button type="submit" class="send">Send to PC</button>
       </form>
     </div>
@@ -32,6 +33,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script>
     let numGems = "<%= gems %>";
+
+    const background = document.querySelector(".back-button");
+    let clicked = false;
+    background.addEventListener("click", () => {
+      console.log("clicked");
+      //clicked = true;
+      numGems--;
+    });
 
     const image = document.querySelector(".pokeimg");
     let sprite;
