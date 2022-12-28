@@ -14,7 +14,7 @@
     >
 
     <div class="menu">
-      <p class="rules">Click Here for chance to get pokemon</p>
+      <p class="rules">Click here to roll for a pokemon</p>
 
       <div>
         <button class="getPokemon">5 Gems</button>
@@ -34,17 +34,9 @@
   <script>
     let numGems = "<%= gems %>";
 
-    const background = document.querySelector(".back-button");
-    let clicked = false;
-    background.addEventListener("click", () => {
-      console.log("clicked");
-      //clicked = true;
-      numGems--;
-    });
-
     const image = document.querySelector(".pokeimg");
-    let sprite;
-    let shiny;
+    //let sprite;
+    let isShiny = false;
     const pokeName = document.querySelector(".pokeName");
     const button = document.querySelector(".getPokemon");
     const amount = document.querySelector(".amount");
@@ -53,7 +45,9 @@
     const store = document.querySelector(".store");
     const addPokemon = document.querySelector(".addPokemon");
     const send = document.querySelector(".send");
+    const rules = document.querySelector(".rules");
 
+    send.disabled = true;
     gemLoss.setAttribute("value", `${numGems}`);
     button.addEventListener("click", async () => {
       setTimeout(() => {
@@ -66,15 +60,13 @@
         }, 500);
 
         let pokemon = await getPokemon();
+
         addPokemon.setAttribute("value", `${pokemon}`);
-        if (chanceShiny() === true) {
-          setTimeout(() => {
-            image.setAttribute("src", `${shiny}`);
-          }, 500);
-        } else {
-          setTimeout(() => {
-            image.setAttribute("src", `${sprite}`);
-          }, 500);
+
+        image.setAttribute("src", `${pokemon}`);
+
+        if (isShiny === true) {
+          rules.innerHTML = " Shiny Pokemon! ";
         }
 
         numGems--;
@@ -119,13 +111,20 @@
         const fetch = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${id}`
         );
+
         const pokemon = fetch.data.forms[0].name;
         console.log(pokemon);
         // prettier-ignore
-        sprite = fetch.data.sprites.front_default
-        shiny = fetch.data.sprites.front_shiny;
+        let sprite = fetch.data.sprites.front_default
+        let shiny = fetch.data.sprites.front_shiny;
 
-        return sprite;
+        let random = Math.floor(Math.random() * 5);
+        if (random === 1) {
+          isShiny = true;
+          return shiny;
+        } else {
+          return sprite;
+        }
       } catch (err) {
         console.log(err);
       }

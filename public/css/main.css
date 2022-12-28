@@ -13,11 +13,13 @@ div {
 }
 
 img {
+  opacity: 0.9;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   width: 100vw;
   height: 105vh;
+  z-index: -10;
 }
 
 form {
@@ -43,15 +45,6 @@ label {
   color: green;
 }
 
-a {
-  text-decoration: none;
-}
-
-a:active {
-  outline: none; /* remove the default outline */
-  box-shadow: none; /* remove the default box-shadow */
-}
-
 button {
   padding: 1px;
   height: 25px;
@@ -65,4 +58,19 @@ button {
   margin-top: 10px;
   display: inline-block;
   margin-right: 20px;
+}
+
+a:active {
+  outline: none; /* remove the default outline */
+  box-shadow: none; /* remove the default box-shadow */
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+}
+
+form {
+  z-index: 10;
 }
